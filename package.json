@@ -1,0 +1,37 @@
+{
+  "name": "yt-dlp-gui",
+  "version": "1.0.0",
+  "main": "packages/main/dist/index.js",
+  "scripts": {
+    "dev:main": "tsc -w -p packages/main",
+    "dev:renderer": "vite --config packages/renderer/vite.config.ts",
+    "start:electron": "electron packages/main/dist/index.js",
+    "dev": "concurrently \"npm:dev:main\" \"npm:dev:renderer\" \"npm:start:electron\"",
+    "build:main": "tsc -p packages/main",
+    "build:renderer": "vite build --config packages/renderer/vite.config.ts",
+    "build": "npm run build:main && npm run build:renderer",
+    "dist": "npm run build && electron-builder"
+  },
+  "build": {
+    "asarUnpack": [
+      "packages/main/dist/bin/yt-dlp.exe"
+    ],
+    "files": [
+      "packages/main/dist/**/*",
+      "packages/renderer/dist/**/*",
+      "node_modules/**/*",
+      "package.json"
+    ]
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.6.0",
+    "concurrently": "^8.2.2",
+    "electron": "^29.0.0",
+    "electron-builder": "^24.9.1",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.3.3",
+    "vite": "^7.0.4"
+  }
+}
