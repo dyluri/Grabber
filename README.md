@@ -1,4 +1,4 @@
-# yt-dlp-gui
+# Grabber
 Wrapper for the excellent tool
 
 Has the basics

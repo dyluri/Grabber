@@ -13,6 +13,8 @@
     "dist": "npm run build && electron-builder"
   },
   "build": {
+    "productName": "Grabber",
+    "appId": "com.yogurt-dev.grabber",
     "asarUnpack": [
       "packages/main/dist/bin/yt-dlp.exe"
     ],
@@ -21,8 +23,10 @@
       "packages/renderer/dist/**/*",
       "node_modules/**/*",
       "package.json"
-    ]
+    ],
+    "icon": "assets/icon.ico"
   },
+  "description": "helps you grab videos or audio",
   "devDependencies": {
     "@vitejs/plugin-react": "^4.6.0",
     "concurrently": "^8.2.2",
