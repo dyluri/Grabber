@@ -16,7 +16,8 @@
     "productName": "Grabber",
     "appId": "com.yogurt-dev.grabber",
     "asarUnpack": [
-      "packages/main/dist/bin/yt-dlp.exe"
+      "packages/main/dist/bin/yt-dlp.exe",
+      "packages/main/dist/bin/fffmpeg.exe"
     ],
     "files": [
       "packages/main/dist/**/*",

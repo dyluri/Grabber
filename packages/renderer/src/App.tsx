@@ -23,6 +23,7 @@ export default function App() {
 
   const [fileType, setFileType] = useState('');
   async function handleDownload() {
+    if(downloading) return;
     const selected = await window.electron.selectFolder();
     setDownloadProgress('');
     if (selected) setFolder(selected);
@@ -38,10 +39,8 @@ export default function App() {
     console.log('Running yt-dlp with URL:', url, 'and output folder:', folder);
     try {
       setOutput('Downloading...');
-      setDownloading(true);
       const result = await window.electron.runYtDlp(url, selected, fileType);
-      setDownloading(false);
-      setOutput('Download complete:\n' + result);
+      setDownloading(true);
     } catch (e: any) {
       setDownloading(false);
       setOutput('Error: ' + e);
@@ -49,10 +48,6 @@ export default function App() {
   }
 
   const [downloadProgress, setDownloadProgress] = useState('');
-
-  const isProgressLine = (line: string) => {
-    return /^\[download\]\s+\d{1,3}%/.test(line.trim());
-  };
 
   useEffect(() => {
     window.electron.onLog((line) => {
@@ -66,6 +61,7 @@ export default function App() {
 
     window.electron.onComplete((code) => {
       setOutput(prev => `Finished Downloading ${code}, ${prev}`);
+      setDownloading(false);
     });
   }, []);
 
@@ -91,17 +87,16 @@ export default function App() {
           <option value="mp4">mp4</option>
           <option value="mp3">mp3 (audio only)</option>
         </select>
-        <UpdateButton onClick={handleDownload} />
+        {downloading ?
+          <LoadingSpinner/>
+          :
+          <UpdateButton onClick={handleDownload} />
+        }
       </div>
-      {downloading ?
-        <LoadingSpinner />
-        :
-        <>
-          <pre style={{ whiteSpace: 'pre-wrap' }}>{output}</pre>  
-          <pre style={{ whiteSpace: 'pre-wrap' }}>{downloadProgress}</pre>  
-        </>
-        
-      }
+
+      <pre style={{ whiteSpace: 'pre-wrap' }}>{output}</pre>  
+      <pre style={{ whiteSpace: 'pre-wrap' }}>{downloadProgress}</pre>  
+
       
     </div>
   );
