@@ -25,7 +25,7 @@ function createWindow() {
     win.loadFile(path.join(__dirname, '../../renderer/dist/index.html'));
   } else {
     // Development: load Vite dev server URL
-    win.loadURL('http://localhost:3000');
+    win.loadURL('http://localhost:5173');
     // Optional: Open DevTools automatically in dev
     win.webContents.openDevTools();
   }
