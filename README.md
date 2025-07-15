@@ -9,6 +9,8 @@ Has the basics
 Checks for any updates of yt-dlp every day
 
 # Setup
+### Install
+Click on releases over there on the right
 ### Building the project
 Create a folder at the root called bin, and put the latest yt-dlp.exe (works as of 7/14/2025)
 
