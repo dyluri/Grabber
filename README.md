@@ -11,8 +11,10 @@ Checks for any updates of yt-dlp every day
 # Setup
 ### Install
 Click on releases over there on the right
+
 ### Building the project
 create the directory ./packages/main/dist/bin and place the yt-dlp.exe there
+
 you also need to add ffmpeg.exe on there too if its not installed on your system
 
 to build the project
@@ -22,4 +24,4 @@ to build the project
 
 `npm run dev`
 
-Created using electron and vite
+Created using electron, vite, and react

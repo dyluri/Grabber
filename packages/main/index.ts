@@ -49,7 +49,7 @@ const ytdlpPath = app.isPackaged
   : path.join(__dirname, 'bin', 'yt-dlp.exe');
 
 const ffmpegPath = app.isPackaged
-  ? path.join(process.resourcesPath, 'app.asar.unpacked', 'packages', 'main', 'dist', 'bin', 'yt-dlp.exe')
+  ? path.join(process.resourcesPath, 'app.asar.unpacked', 'packages', 'main', 'dist', 'bin', 'ffmpeg.exe')
   : path.join(__dirname, 'bin', 'ffmpeg.exe');
 
 ipcMain.handle('run-yt-dlp', (event: any, url: string, outputFolder: string, fileType: string) => {
@@ -77,7 +77,12 @@ ipcMain.handle('run-yt-dlp', (event: any, url: string, outputFolder: string, fil
   args.push(url);
 
   // Spawn the process
-  const child = spawn(ytdlpPath, args);
+  const child = spawn(ytdlpPath, args, {
+    env: {
+      ...process.env,
+      FFMPEG_LOCATION: ffmpegPath, // ✅ Tell yt-dlp where FFmpeg is
+    }
+  });
 
   child.stdout.on('data', (data: any) => {
     event.sender.send('yt-dlp-log', data.toString());
